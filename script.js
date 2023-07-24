@@ -17,15 +17,19 @@ window.addEventListener("load", function() {
 
     let cargoInput = document.querySelector("input[name=cargoMass]");
     let cargoMass = Number(cargoInput.value);
+   
+    if (pilotName === "" || copilotName === "") {
+        alert("All fields are required!"); //Alerts if none OR if pilot fields are not completed
 
-    if (pilotName === "" || copilotName === "" || fuelLevel === "" || cargoMass === "") {
-    alert("All fields are required!"); //Alerts if all fields not completed
+    } else if (isNaN(fuelLevel) || isNaN(cargoMass)) {
+        alert("Make sure to enter valid information for each field!"); //Alerts if FL/CM not a number
+    
+    } else if (pilotName !== isNaN || copilotName !== isNaN) {
+        alert("Make sure to enter valid information for each field!"); //Alerts if pilots are numbers
 
-    formSubmission(document, pilotName, copilotName, fuelLevel, cargoMass); 
-    //print same status message no matter what is in fields
-
-    }
-
+    } //Error: "Make sure to enter valid information for each field!" alerts when FL & CM are empty
+        formSubmission(document, pilotName, copilotName, fuelLevel, cargoMass); 
+    
     }); 
 
    let listedPlanets;
