@@ -1,13 +1,18 @@
 // Write your JavaScript code here!
 
+const { myFetch, pickPlanet, addDestinationInfo, formSubmission } = require("./scriptHelper");
+
 window.addEventListener("load", function() {
-    let form = document.querySelector("form");//stops the form from submitting the data and refreshing the page.
+    let faultyItemsList = document.getElementById("faultyItems"); //
+    faultyItemsList.style.visibility = "hidden";//
+
+    let form = document.querySelector("form");
 
     form.addEventListener('submit', function(event) { 
-    event.preventDefault(); //Stops form from submitting the data and refreshing the page.
+    event.preventDefault(); //Stops form from submitting data and refreshing the page.
 
     let pilotInput = document.querySelector("input[name=pilotName]"); //represents data field
-    let pilotName = pilotInput.value; //represents field data entered
+    let pilotName = pilotInput.value; //represents data entered into field
 
     let copilotInput = document.querySelector("input[name=copilotName]");
     let copilotName = copilotInput.value;
@@ -18,29 +23,24 @@ window.addEventListener("load", function() {
     let cargoInput = document.querySelector("input[name=cargoMass]");
     let cargoMass = Number(cargoInput.value);
    
-    if (pilotName === "" || copilotName === "") {
-        alert("All fields are required!"); //Alerts if none OR if pilot fields are not completed
-
-    } else if (isNaN(fuelLevel) || isNaN(cargoMass)) {
-        alert("Make sure to enter valid information for each field!"); //Alerts if FL/CM not a number
-    
-    } else if (pilotName !== isNaN || copilotName !== isNaN) {
-        alert("Make sure to enter valid information for each field!"); //Alerts if pilots are numbers
-
-    } //Error: "Make sure to enter valid information for each field!" alerts when FL & CM are empty
-        formSubmission(document, pilotName, copilotName, fuelLevel, cargoMass); 
-    
+    formSubmission(document, faultyItemsList, pilotName, copilotName,fuelLevel, cargoMass);
+   
     }); 
 
    let listedPlanets;
    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-   let listedPlanetsResponse;
+   let listedPlanetsResponse = myFetch()
+
    listedPlanetsResponse.then(function (result) {
        listedPlanets = result;
        console.log(listedPlanets);
    }).then(function () {
        console.log(listedPlanets);
        // Below this comment call the appropriate helper functions to pick a planet from the list of planets and add that information to your destination.
+       let chosenPlanet = pickPlanet(listedPlanets) 
+
+       addDestinationInfo(document, chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.imageURL)
+
    })
 
 });
