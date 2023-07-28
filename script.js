@@ -1,14 +1,12 @@
 // Write your JavaScript code here!
 
-const { myFetch, pickPlanet, addDestinationInfo, formSubmission } = require("./scriptHelper");
-
 window.addEventListener("load", function() {
-    let faultyItemsList = document.getElementById("faultyItems"); //
-    faultyItemsList.style.visibility = "hidden";//
+    let faultyItemsList = document.getElementById("faultyItems"); 
+    faultyItemsList.style.visibility = "hidden";
 
     let form = document.querySelector("form");
 
-    form.addEventListener('submit', function(event) { 
+    form.addEventListener('submit', function(event) { //sending post request and/or refresh page, but preventDefault stops this
     event.preventDefault(); //Stops form from submitting data and refreshing the page.
 
     let pilotInput = document.querySelector("input[name=pilotName]"); //represents data field
@@ -22,10 +20,10 @@ window.addEventListener("load", function() {
 
     let cargoInput = document.querySelector("input[name=cargoMass]");
     let cargoMass = Number(cargoInput.value);
-   
+    
     formSubmission(document, faultyItemsList, pilotName, copilotName,fuelLevel, cargoMass);
    
-    }); 
+    });
 
    let listedPlanets;
    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
@@ -38,9 +36,8 @@ window.addEventListener("load", function() {
        console.log(listedPlanets);
        // Below this comment call the appropriate helper functions to pick a planet from the list of planets and add that information to your destination.
        let chosenPlanet = pickPlanet(listedPlanets) 
-
-       addDestinationInfo(document, chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.imageURL)
-
+       addDestinationInfo(document, chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.image)
    })
 
 });
+
